@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注目AIニュース34選：インタラクティブWebレポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f9fa;
+        }
+        #detail-view {
+            display: none;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            max-width: 500px;
+            margin: 1rem auto;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800">注目AIニュース34選</h1>
+            <p class="text-slate-600 mt-2">2024年上半期 主要動向レポート</p>
+        </header>
+
+        <div id="list-view">
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="0"><h3 class="font-bold text-lg text-slate-800">01. ChatGPT 新コネクタ β</h3><p class="text-slate-600 mt-2 text-sm">社内Google Drive等のデータを連携し、横断検索・分析が可能に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="1"><h3 class="font-bold text-lg text-slate-800">02. ChatGPT Record</h3><p class="text-slate-600 mt-2 text-sm">Macアプリで音声を録音すると、自動で文字起こしと要約を生成。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="2"><h3 class="font-bold text-lg text-slate-800">03. Gemini 1.5 Pro アップグレード</h3><p class="text-slate-600 mt-2 text-sm">AIモデルのアップデートで、思考能力や回答の精度がさらに向上。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="3"><h3 class="font-bold text-lg text-slate-800">04. Gemini プレビューの機能追加</h3><p class="text-slate-600 mt-2 text-sm">生成したHTMLプレビューに、ボタン一つでインタラクティブなAI機能を追加。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="4"><h3 class="font-bold text-lg text-slate-800">05. Gemini アプリのScheduled Actions</h3><p class="text-slate-600 mt-2 text-sm">特定の時間にタスクを自動実行させるスケジュール機能が追加予定。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="5"><h3 class="font-bold text-lg text-slate-800">06. NotebookLM の一般公開</h3><p class="text-slate-600 mt-2 text-sm">作成したAIチャット環境を、リンクで誰にでも共有可能に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="6"><h3 class="font-bold text-lg text-slate-800">07. PR：Squarespace</h3><p class="text-slate-600 mt-2 text-sm">AIを活用し、誰でも簡単にプロ級のウェブサイトを作成できるサービス。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="7"><h3 class="font-bold text-lg text-slate-800">08. Perplexity、Gmail・カレンダー検索に対応</h3><p class="text-slate-600 mt-2 text-sm">自身のメールやスケジュール内容をAIが検索・分析できるようになった。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="8"><h3 class="font-bold text-lg text-slate-800">09. Mapify、UI刷新とAI機能強化</h3><p class="text-slate-600 mt-2 text-sm">マインドマップツール。UIが刷新され、タグ付け機能で分類・検索が容易に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="9"><h3 class="font-bold text-lg text-slate-800">10. Manus Slide：ハイクオリティなスライド生成</h3><p class="text-slate-600 mt-2 text-sm">プロンプトから、デザイン性の高いプレゼンスライドを自動生成する機能。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="10"><h3 class="font-bold text-lg text-slate-800">11. Suno、STEM分離機能</h3><p class="text-slate-600 mt-2 text-sm">生成した楽曲をボーカル、ベース等のパートごとに分離してダウンロード可能に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="11"><h3 class="font-bold text-lg text-slate-800">12. Suno、カバー曲生成機能</h3><p class="text-slate-600 mt-2 text-sm">既存の楽曲や鼻歌をアップし、そのメロディーを基にカバー曲を生成。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="12"><h3 class="font-bold text-lg text-slate-800">13. Heygen、Avator Ⅳ</h3><p class="text-slate-600 mt-2 text-sm">1枚の静止画から、自然に話すアバター動画を生成できるようになった。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="13"><h3 class="font-bold text-lg text-slate-800">14. Eleven Labs、Eleven v3</h3><p class="text-slate-600 mt-2 text-sm">声の感情を細かくコントロールでき、複数話者の会話形式の音声も一度に生成可能に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="14"><h3 class="font-bold text-lg text-slate-800">15. Bing Video Creator</h3><p class="text-slate-600 mt-2 text-sm">OpenAIのSoraを搭載した無料のAI動画生成ツールがBingアプリに登場。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="15"><h3 class="font-bold text-lg text-slate-800">16. Cursor 1.0</h3><p class="text-slate-600 mt-2 text-sm">AIコードエディタが正式版に。GitHubのプルリクエストをAIが自動レビューする「Bug Bot」搭載。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="16"><h3 class="font-bold text-lg text-slate-800">17. 天秤AI by GMO</h3><p class="text-slate-600 mt-2 text-sm">複数のAIモデルの回答を同時に比較できるサービス。最新モデルが追加されUIも刷新。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="17"><h3 class="font-bold text-lg text-slate-800">18. Agentforce for Sales</h3><p class="text-slate-600 mt-2 text-sm">営業活動を自動化するAIエージェント。見込み客へメール等を自動送信し、アポイントを探る。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="18"><h3 class="font-bold text-lg text-slate-800">19. 米金融大手、AIエージェント導入加速</h3><p class="text-slate-600 mt-2 text-sm">専門知識を持った「もう一人の社員」としてAIエージェントを導入する動き。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="19"><h3 class="font-bold text-lg text-slate-800">20. 博報堂DYHD、細田AI</h3><p class="text-slate-600 mt-2 text-sm">同社の優秀な社員の思考やノウハウを学習させたAIを開発し、半年で4000時間を削減。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="20"><h3 class="font-bold text-lg text-slate-800">21. エクサウィザーズ、バディエージェント</h3><p class="text-slate-600 mt-2 text-sm">司令塔AIが、専門タスクを実行する複数のエージェントに仕事を割り振るサービス。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="21"><h3 class="font-bold text-lg text-slate-800">22. Cursorで議事録を要件定義書に</h3><p class="text-slate-600 mt-2 text-sm">議事録やBacklog情報をCursorに読み込ませ、要件定義書を効率的に作成するワークフロー。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="22"><h3 class="font-bold text-lg text-slate-800">23. マーケットエンタープライズのAI活用</h3><p class="text-slate-600 mt-2 text-sm">生成AI活用で社員の95%が利用し、年間7.5万時間の業務削減を達成。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="23"><h3 class="font-bold text-lg text-slate-800">24. Samsung、Perplexity AIをプリインストールへ</h3><p class="text-slate-600 mt-2 text-sm">将来のGalaxyに、検索特化AI「Perplexity」を標準搭載する可能性が報道された。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="24"><h3 class="font-bold text-lg text-slate-800">25. Cursorの急成長</h3><p class="text-slate-600 mt-2 text-sm">開発元のAnysphere社が、約1.5兆円という非常に高い評価額に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="25"><h3 class="font-bold text-lg text-slate-800">26. ヒト型ロボット市場の拡大</h3><p class="text-slate-600 mt-2 text-sm">物理世界で活動する「フィジカルAI」が注目され、ヒト型ロボット企業への投資が拡大。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="26"><h3 class="font-bold text-lg text-slate-800">27. Amazon、ヒューマノイドロボット実験</h3><p class="text-slate-600 mt-2 text-sm">物流拠点でのピッキングから積み込みまで、ヒト型ロボットを活用した配送プロセスの実証実験を開始。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="27"><h3 class="font-bold text-lg text-slate-800">28. OpenAI、ログの無期限保存命令</h3><p class="text-slate-600 mt-2 text-sm">訴訟に関連し、裁判所からユーザーの利用ログを無期限で保存するよう命じられているとの報道。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="28"><h3 class="font-bold text-lg text-slate-800">29. Anthropic CEO、大量失業を警告</h3><p class="text-slate-600 mt-2 text-sm">「今後1〜5年で、AIがエントリーレベルのホワイトカラー職の最大50%を代替する」と警告。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="29"><h3 class="font-bold text-lg text-slate-800">30. 生産性が3倍に</h3><p class="text-slate-600 mt-2 text-sm">スタンフォード大学の調査で、AI利用により生産性が平均3倍に向上（作業時間90分→30分）。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="30"><h3 class="font-bold text-lg text-slate-800">31. AI活用への懸念</h3><p class="text-slate-600 mt-2 text-sm">職場でAIを使うと「楽をしている」とネガティブに思われる懸念があり、生産性向上の障壁に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="31"><h3 class="font-bold text-lg text-slate-800">32. 日本企業のAI自社開発ROI</h3><p class="text-slate-600 mt-2 text-sm">生成AIツールを自社開発した企業の多くが高いROIを達成できていないことが判明。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="32"><h3 class="font-bold text-lg text-slate-800">33. 消費者のAI検索行動</h3><p class="text-slate-600 mt-2 text-sm">消費者の7割がAIチャット内で商品検索を完結させているというデータ。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="33"><h3 class="font-bold text-lg text-slate-800">34. 小中学生のAI利用実態</h3><p class="text-slate-600 mt-2 text-sm">小学生の50.7％、中学生の60.6％がChatGPTの利用経験あり。</p></div>
+            </div>
+            </div>
+
+        <div id="detail-view" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+            <button id="back-btn" class="mb-6 bg-slate-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-600 transition-colors">← 一覧に戻る</button>
+            <div id="detail-content">
+                </div>
+        </div>
+    </div>
+
+<script>
+// 元のニュースデータは変更なし
+const newsData = [
+    // ... (元のnewsDataの配列をここにペースト) ...
+    // 例：
+    { title: "01. ChatGPT 新コネクタ β", summary: "社内Google Drive等のデータを連携し、横断検索・分析が可能に。", tool: "ChatGPT (Plusプラン)", merits: ["埋もれた社内ナレッジの発見", "情報の属人化防止"], demerits: ["ディープリサーチに時間がかかる", "検索範囲が広すぎると精度低下"], point: "過去の資産（報告書等）の再利用でリサーチ時間を劇的に短縮し、組織の集合知を活用できる。", visual_type: "flowchart", visual_data: { type: 'TD', nodes: [{id:'A', text:'データソース'},{id:'B', text:'ChatGPTで指示'},{id:'C', text:'ディープリサーチ実行'},{id:'D', text:'アウトプット生成'}], edges:[['A','B'],['B','C'],['C','D']] } },
+    { title: "02. ChatGPT Record", summary: "Macアプリで音声を録音すると、自動で文字起こしと要約を生成。", tool: "ChatGPT (Macデスクトップアプリ限定)", merits: ["会議やアイデアを即座にテキスト化", "思考を止めずにブレスト可能"], demerits: ["Macデスクトップアプリ限定"], point: "「議事録作成の即時化」が最大の強み。会議終了と同時にドラフトが完成する。", visual_type: "table", visual_data: { headers: ["ステップ", "アクション", "説明"], rows: [["1", "🔴 録音開始", "ボタンを押して話す"],["2", "⏹️ 録音終了", "AIが自動処理"],["3", "✨ テキスト生成", "文字起こしと要約が表示"]] } },
+    // ... (以下、34番まですべてのデータをここにコピー) ...
+];
+
+// HTML要素の取得
+const listView = document.getElementById('list-view');
+const detailView = document.getElementById('detail-view');
+const detailContent = document.getElementById('detail-content');
+const backBtn = document.getElementById('back-btn');
+const newsGrid = document.getElementById('news-grid'); // 追加
+
+let activeChart = null;
+
+// 詳細表示のロジック（変更なし）
+function createVisual(type, data, container) {
+    container.innerHTML = '';
+    if (activeChart) {
+        activeChart.destroy();
+        activeChart = null;
+    }
+    if (type === 'flowchart') {
+        const flowContainer = document.createElement('div');
+        flowContainer.className = `flex ${data.type === 'TD' ? 'flex-col' : 'flex-row'} items-center justify-center gap-2 h-full p-2`;
+        data.nodes.forEach((node, index) => {
+            const nodeEl = document.createElement('div');
+            nodeEl.className = 'bg-sky-100 border-2 border-sky-500 rounded-lg p-3 text-center text-xs md:text-sm shadow-md';
+            nodeEl.innerHTML = node.text;
+            flowContainer.appendChild(nodeEl);
+            if (index < data.nodes.length - 1) {
+                const arrow = document.createElement('div');
+                arrow.className = 'text-sky-500 font-bold text-2xl';
+                arrow.innerHTML = data.type === 'TD' ? '↓' : '→';
+                flowContainer.appendChild(arrow);
+            }
+        });
+        container.appendChild(flowContainer);
+    } else if (type === 'table' || type === 'table_rating') {
+        const table = document.createElement('table');
+        table.className = 'w-full text-left border-collapse text-sm';
+        const thead = table.createTHead();
+        const headerRow = thead.insertRow();
+        headerRow.className = 'bg-slate-200';
+        data.headers.forEach(headerText => {
+            const th = document.createElement('th');
+            th.className = 'p-2 border border-slate-300 font-semibold';
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        });
+        const tbody = table.createTBody();
+        data.rows.forEach(rowData => {
+            const row = tbody.insertRow();
+            rowData.forEach(cellData => {
+                const td = row.insertCell();
+                td.className = 'p-2 border border-slate-300 align-top';
+                td.innerHTML = cellData;
+            });
+        });
+        container.appendChild(table);
+    } else if (type === 'custom') {
+        container.innerHTML = data.html;
+    } else if (type === 'chart') {
+        const chartContainer = document.createElement('div');
+        chartContainer.className = 'chart-container';
+        const canvas = document.createElement('canvas');
+        chartContainer.appendChild(canvas);
+        container.appendChild(chartContainer);
+        activeChart = new Chart(canvas, {
+            type: data.type,
+            data: {
+                labels: data.labels,
+                datasets: data.datasets
+            },
+            options: data.options || { responsive: true, maintainAspectRatio: false }
+        });
+    }
+}
+function showDetail(index) {
+    const item = newsData[index];
+    detailContent.innerHTML = `
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">${item.title}</h2>
+        <p class="text-slate-500 font-medium mb-6">${item.tool}</p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="space-y-4">
+                <div><h3 class="font-bold text-lg mb-2">概要</h3><p>${item.summary}</p></div>
+                <div><h3 class="font-bold text-lg mb-2 text-green-600">メリット</h3><ul class="list-disc list-inside space-y-1">${item.merits.map(m => `<li>${m}</li>`).join('')}</ul></div>
+                <div><h3 class="font-bold text-lg mb-2 text-red-600">デメリット</h3><ul class="list-disc list-inside space-y-1">${item.demerits.map(m => `<li>${m}</li>`).join('')}</ul></div>
+            </div>
+            <div id="visual-container" class="bg-slate-50 p-4 rounded-lg flex items-center justify-center min-h-[250px]"></div>
+        </div>
+        <div class="mt-8 bg-sky-100 p-4 rounded-lg border-l-4 border-sky-500">
+            <h3 class="font-bold text-lg mb-2">🚀 業務効率化のポイント</h3>
+            <p>${item.point}</p>
+        </div>
+    `;
+    const visualContainer = document.getElementById('visual-container');
+    createVisual(item.visual_type, item.visual_data, visualContainer);
+    listView.style.display = 'none';
+    detailView.style.display = 'block';
+    window.scrollTo(0, 0);
+}
+
+// ↓↓↓ この部分を変更・簡略化 ↓↓↓
+
+// すでにHTMLに描画されている各ニュースカードにクリックイベントを設定する
+document.querySelectorAll('#news-grid .cursor-pointer').forEach(card => {
+    card.addEventListener('click', () => {
+        // data-index属性から、クリックされたカードの番号を取得
+        const index = parseInt(card.getAttribute('data-index'), 10);
+        showDetail(index);
+    });
+});
+
+// 元に戻るボタンのイベント（変更なし）
+backBtn.addEventListener('click', () => {
+    detailView.style.display = 'none';
+    listView.style.display = 'block';
+    if (activeChart) {
+        activeChart.destroy();
+        activeChart = null;
+    }
+});
+</script>
+
+</body>
+</html>
