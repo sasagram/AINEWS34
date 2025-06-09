@@ -163,7 +163,10 @@ function createVisual(type, data, container) {
 
 function showDetail(index) {
     const item = newsData[index];
-    detailContent.innerHTML = `
+    detailContent.innerHTML = ''; // Clear previous content
+
+    const mainContent = document.createElement('div');
+    mainContent.innerHTML = `
         <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">${item.title}</h2>
         <p class="text-slate-500 font-medium mb-6">${item.tool}</p>
         
@@ -183,7 +186,6 @@ function showDetail(index) {
                 </div>
             </div>
             <div id="visual-container" class="bg-slate-50 p-4 rounded-lg flex items-center justify-center min-h-[250px]">
-                <!-- Visual will be injected here -->
             </div>
         </div>
 
@@ -192,9 +194,49 @@ function showDetail(index) {
             <p>${item.point}</p>
         </div>
     `;
+    detailContent.appendChild(mainContent);
 
-    const visualContainer = document.getElementById('visual-container');
+    const visualContainer = detailContent.querySelector('#visual-container');
     createVisual(item.visual_type, item.visual_data, visualContainer);
+
+    // Create and append navigation
+    const detailNav = document.createElement('div');
+    detailNav.id = 'detail-nav';
+    detailNav.className = 'mt-8 pt-6 border-t flex justify-between items-center gap-4';
+
+    // Previous Button
+    const prevIndex = index - 1;
+    const prevButton = document.createElement('button');
+    prevButton.className = 'text-left text-slate-600 hover:text-sky-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed';
+    if (prevIndex >= 0) {
+        prevButton.innerHTML = `
+            <span class="text-xs">← 前のニュース</span>
+            <p class="font-bold text-sm md:text-base">${newsData[prevIndex].title}</p>
+        `;
+        prevButton.onclick = () => showDetail(prevIndex);
+    } else {
+        prevButton.disabled = true;
+        prevButton.innerHTML = `<span class="text-xs invisible">前のニュース</span>`;
+    }
+    detailNav.appendChild(prevButton);
+
+    // Next Button
+    const nextIndex = index + 1;
+    const nextButton = document.createElement('button');
+    nextButton.className = 'text-right text-slate-600 hover:text-sky-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed';
+    if (nextIndex < newsData.length) {
+        nextButton.innerHTML = `
+            <span class="text-xs">次のニュース →</span>
+            <p class="font-bold text-sm md:text-base">${newsData[nextIndex].title}</p>
+        `;
+        nextButton.onclick = () => showDetail(nextIndex);
+    } else {
+        nextButton.disabled = true;
+        nextButton.innerHTML = `<span class="text-xs invisible">次のニュース</span>`;
+    }
+    detailNav.appendChild(nextButton);
+    
+    detailContent.appendChild(detailNav);
 
     listView.style.display = 'none';
     detailView.style.display = 'block';
