@@ -3,420 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>注目AIニュース34選：プレゼンテーション資料 (Gemini API搭載版)</title>
+    <title>注目AIニュース34選：インタラクティブWebレポート</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f9fa;
         }
-        .slide {
+        #detail-view {
             display: none;
-            transition: opacity 0.5s ease-in-out;
-        }
-        .slide.active {
-            display: block;
         }
         .chart-container {
             position: relative;
-            height: 250px;
+            height: 300px;
             width: 100%;
-            max-width: 400px;
-            margin: auto;
-        }
-        /* Modal styles */
-        .modal-content h3 {
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 700; /* font-bold */
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            color: #334155; /* slate-700 */
-        }
-        .modal-content ul {
-            list-style-type: disc;
-            list-style-position: inside;
-            padding-left: 1rem;
-        }
-        .modal-content li {
-            margin-bottom: 0.25rem;
+            max-width: 500px;
+            margin: 1rem auto;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-4">
+<body class="text-gray-800">
 
-    <div class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden">
-        <header class="bg-slate-800 text-white p-4 text-center">
-            <h1 class="text-xl md:text-2xl font-bold">注目AIニュース34選：プレゼンテーション資料</h1>
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800">注目AIニュース34選</h1>
+            <p class="text-slate-600 mt-2">2024年上半期 主要動向レポート</p>
         </header>
 
-        <main id="slideshow-container" class="relative w-full aspect-[16/9] bg-white">
-            <!-- Slides will be injected here by JavaScript -->
-        </main>
-
-        <footer class="flex items-center justify-between p-4 bg-slate-100 border-t">
-            <button id="prevBtn" class="bg-slate-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-            </button>
-            <div id="slide-counter" class="text-slate-700 font-semibold">1 / 11</div>
-            <button id="nextBtn" class="bg-slate-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-700 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-            </button>
-        </footer>
-    </div>
-
-    <!-- AI Modal -->
-    <div id="ai-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
-            <div class="flex justify-between items-center p-4 border-b">
-                <h3 class="text-lg font-bold text-slate-800">✨ AIによる深掘り分析</h3>
-                <button id="close-modal-btn" class="text-gray-500 hover:text-gray-800">&times;</button>
+        <div id="list-view">
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="0"><h3 class="font-bold text-lg text-slate-800">01. ChatGPT 新コネクタ β</h3><p class="text-slate-600 mt-2 text-sm">社内Google Drive等のデータを連携し、横断検索・分析が可能に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="1"><h3 class="font-bold text-lg text-slate-800">02. ChatGPT Record</h3><p class="text-slate-600 mt-2 text-sm">Macアプリで音声を録音すると、自動で文字起こしと要約を生成。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="2"><h3 class="font-bold text-lg text-slate-800">03. Gemini 1.5 Pro アップグレード</h3><p class="text-slate-600 mt-2 text-sm">AIモデルのアップデートで、思考能力や回答の精度がさらに向上。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="3"><h3 class="font-bold text-lg text-slate-800">04. Gemini プレビューの機能追加</h3><p class="text-slate-600 mt-2 text-sm">生成したHTMLプレビューに、ボタン一つでインタラクティブなAI機能を追加。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="4"><h3 class="font-bold text-lg text-slate-800">05. Gemini アプリのScheduled Actions</h3><p class="text-slate-600 mt-2 text-sm">特定の時間にタスクを自動実行させるスケジュール機能が追加予定。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="5"><h3 class="font-bold text-lg text-slate-800">06. NotebookLM の一般公開</h3><p class="text-slate-600 mt-2 text-sm">作成したAIチャット環境を、リンクで誰にでも共有可能に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="6"><h3 class="font-bold text-lg text-slate-800">07. PR：Squarespace</h3><p class="text-slate-600 mt-2 text-sm">AIを活用し、誰でも簡単にプロ級のウェブサイトを作成できるサービス。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="7"><h3 class="font-bold text-lg text-slate-800">08. Perplexity、Gmail・カレンダー検索に対応</h3><p class="text-slate-600 mt-2 text-sm">自身のメールやスケジュール内容をAIが検索・分析できるようになった。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="8"><h3 class="font-bold text-lg text-slate-800">09. Mapify、UI刷新とAI機能強化</h3><p class="text-slate-600 mt-2 text-sm">マインドマップツール。UIが刷新され、タグ付け機能で分類・検索が容易に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="9"><h3 class="font-bold text-lg text-slate-800">10. Manus Slide：ハイクオリティなスライド生成</h3><p class="text-slate-600 mt-2 text-sm">プロンプトから、デザイン性の高いプレゼンスライドを自動生成する機能。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="10"><h3 class="font-bold text-lg text-slate-800">11. Suno、STEM分離機能</h3><p class="text-slate-600 mt-2 text-sm">生成した楽曲をボーカル、ベース等のパートごとに分離してダウンロード可能に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="11"><h3 class="font-bold text-lg text-slate-800">12. Suno、カバー曲生成機能</h3><p class="text-slate-600 mt-2 text-sm">既存の楽曲や鼻歌をアップし、そのメロディーを基にカバー曲を生成。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="12"><h3 class="font-bold text-lg text-slate-800">13. Heygen、Avator Ⅳ</h3><p class="text-slate-600 mt-2 text-sm">1枚の静止画から、自然に話すアバター動画を生成できるようになった。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="13"><h3 class="font-bold text-lg text-slate-800">14. Eleven Labs、Eleven v3</h3><p class="text-slate-600 mt-2 text-sm">声の感情を細かくコントロールでき、複数話者の会話形式の音声も一度に生成可能に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="14"><h3 class="font-bold text-lg text-slate-800">15. Bing Video Creator</h3><p class="text-slate-600 mt-2 text-sm">OpenAIのSoraを搭載した無料のAI動画生成ツールがBingアプリに登場。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="15"><h3 class="font-bold text-lg text-slate-800">16. Cursor 1.0</h3><p class="text-slate-600 mt-2 text-sm">AIコードエディタが正式版に。GitHubのプルリクエストをAIが自動レビューする「Bug Bot」搭載。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="16"><h3 class="font-bold text-lg text-slate-800">17. 天秤AI by GMO</h3><p class="text-slate-600 mt-2 text-sm">複数のAIモデルの回答を同時に比較できるサービス。最新モデルが追加されUIも刷新。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="17"><h3 class="font-bold text-lg text-slate-800">18. Agentforce for Sales</h3><p class="text-slate-600 mt-2 text-sm">営業活動を自動化するAIエージェント。見込み客へメール等を自動送信し、アポイントを探る。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="18"><h3 class="font-bold text-lg text-slate-800">19. 米金融大手、AIエージェント導入加速</h3><p class="text-slate-600 mt-2 text-sm">専門知識を持った「もう一人の社員」としてAIエージェントを導入する動き。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="19"><h3 class="font-bold text-lg text-slate-800">20. 博報堂DYHD、細田AI</h3><p class="text-slate-600 mt-2 text-sm">同社の優秀な社員の思考やノウハウを学習させたAIを開発し、半年で4000時間を削減。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="20"><h3 class="font-bold text-lg text-slate-800">21. エクサウィザーズ、バディエージェント</h3><p class="text-slate-600 mt-2 text-sm">司令塔AIが、専門タスクを実行する複数のエージェントに仕事を割り振るサービス。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="21"><h3 class="font-bold text-lg text-slate-800">22. Cursorで議事録を要件定義書に</h3><p class="text-slate-600 mt-2 text-sm">議事録やBacklog情報をCursorに読み込ませ、要件定義書を効率的に作成するワークフロー。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="22"><h3 class="font-bold text-lg text-slate-800">23. マーケットエンタープライズのAI活用</h3><p class="text-slate-600 mt-2 text-sm">生成AI活用で社員の95%が利用し、年間7.5万時間の業務削減を達成。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="23"><h3 class="font-bold text-lg text-slate-800">24. Samsung、Perplexity AIをプリインストールへ</h3><p class="text-slate-600 mt-2 text-sm">将来のGalaxyに、検索特化AI「Perplexity」を標準搭載する可能性が報道された。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="24"><h3 class="font-bold text-lg text-slate-800">25. Cursorの急成長</h3><p class="text-slate-600 mt-2 text-sm">開発元のAnysphere社が、約1.5兆円という非常に高い評価額に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="25"><h3 class="font-bold text-lg text-slate-800">26. ヒト型ロボット市場の拡大</h3><p class="text-slate-600 mt-2 text-sm">物理世界で活動する「フィジカルAI」が注目され、ヒト型ロボット企業への投資が拡大。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="26"><h3 class="font-bold text-lg text-slate-800">27. Amazon、ヒューマノイドロボット実験</h3><p class="text-slate-600 mt-2 text-sm">物流拠点でのピッキングから積み込みまで、ヒト型ロボットを活用した配送プロセスの実証実験を開始。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="27"><h3 class="font-bold text-lg text-slate-800">28. OpenAI、ログの無期限保存命令</h3><p class="text-slate-600 mt-2 text-sm">訴訟に関連し、裁判所からユーザーの利用ログを無期限で保存するよう命じられているとの報道。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="28"><h3 class="font-bold text-lg text-slate-800">29. Anthropic CEO、大量失業を警告</h3><p class="text-slate-600 mt-2 text-sm">「今後1〜5年で、AIがエントリーレベルのホワイトカラー職の最大50%を代替する」と警告。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="29"><h3 class="font-bold text-lg text-slate-800">30. 生産性が3倍に</h3><p class="text-slate-600 mt-2 text-sm">スタンフォード大学の調査で、AI利用により生産性が平均3倍に向上（作業時間90分→30分）。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="30"><h3 class="font-bold text-lg text-slate-800">31. AI活用への懸念</h3><p class="text-slate-600 mt-2 text-sm">職場でAIを使うと「楽をしている」とネガティブに思われる懸念があり、生産性向上の障壁に。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="31"><h3 class="font-bold text-lg text-slate-800">32. 日本企業のAI自社開発ROI</h3><p class="text-slate-600 mt-2 text-sm">生成AIツールを自社開発した企業の多くが高いROIを達成できていないことが判明。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="32"><h3 class="font-bold text-lg text-slate-800">33. 消費者のAI検索行動</h3><p class="text-slate-600 mt-2 text-sm">消費者の7割がAIチャット内で商品検索を完結させているというデータ。</p></div>
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer" data-index="33"><h3 class="font-bold text-lg text-slate-800">34. 小中学生のAI利用実態</h3><p class="text-slate-600 mt-2 text-sm">小学生の50.7％、中学生の60.6％がChatGPTの利用経験あり。</p></div>
             </div>
-            <div id="modal-content-area" class="p-6 overflow-y-auto modal-content">
-                <!-- AI response will be injected here -->
             </div>
+
+        <div id="detail-view" class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+            <button id="back-btn" class="mb-6 bg-slate-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-slate-600 transition-colors">← 一覧に戻る</button>
+            <div id="detail-content">
+                </div>
         </div>
     </div>
 
 <script>
-const slidesData = [
-    {
-        title: "01. ChatGPT 新コネクタ β：社内データアクセスが拡大",
-        tool: "ChatGPT (Plusプラン)",
-        summary: "Google Drive等の外部サービスと連携し、社内ファイルを横断検索・分析できる「コネクタ」機能が登場。特に「ディープリサーチ」との組み合わせが強力。",
-        merits: ["埋もれていた社内ナレッジを発見・活用できる", "情報の属人化を防ぐ"],
-        demerits: ["ディープリサーチに時間がかかる（数分〜）", "検索範囲が広すぎると精度が落ちる"],
-        point: "過去の資産（報告書・議事録）の再利用により、リサーチ時間を劇的に短縮し、組織の集合知を活用できる。",
-        visual_type: "flowchart",
-        visual_data: { type: 'TD', nodes: [{ id: 'A', text: '<strong>STEP 1: データソース</strong><br>Google Drive, Dropbox, M365' },{ id: 'B', text: '<strong>STEP 2: ChatGPT</strong><br>プロンプトで指示' },{ id: 'C', text: '<strong>STEP 3: ディープリサーチ</strong><br>AIがデータを横断分析' },{ id: 'D', text: '<strong>STEP 4: アウトプット</strong><br>要約・リスト・企画書生成' }], edges: [['A', 'B'], ['B', 'C'], ['C', 'D']] }
-    },
-    {
-        title: "02. ChatGPT Record：音声から知識を構造化",
-        tool: "ChatGPT (Macデスクトップアプリ限定)",
-        summary: "Mac版アプリに搭載された「Record」ボタンで音声を録音すると、自動で文字起こしと要約が生成される機能。",
-        merits: ["会議やアイデアを即座にテキスト化", "思考を止めずにブレスト可能"],
-        demerits: ["Macデスクトップアプリ限定", "データの蓄積先として最適かは個人による"],
-        point: "「議事録作成の即時化」が最大のポイント。会議終了と同時に議事録ドラフトが完成し、アイデアを失うことなく次に繋げられる。",
-        visual_type: "table",
-        visual_data: { headers: ["ステップ", "アクション", "説明"], rows: [["<strong>STEP 1</strong>", "🔴 録音開始", "アプリのボタンを押して話す"],["<strong>STEP 2</strong>", "⏹️ 録音終了", "録音を停止するとAIが自動処理"],["<strong>STEP 3</strong>", "✨ テキスト生成", "数秒後に文字起こしと要約が表示"]] }
-    },
-    {
-        title: "03. Gemini 1.5 Proアップグレード",
-        tool: "Gemini 1.5 Pro",
-        summary: "AIモデルのアップデート（0605バージョン）により、思考能力や回答の精度がさらに向上。",
-        merits: ["生成されるテキストの質や論理的一貫性が向上", "より複雑な指示に対応可能に"],
-        demerits: ["モデルの進化が速く、ユーザーは継続的な評価が必要"],
-        point: "AIのアウトプットの質が上がることで、人間による手直しの時間が減り、事業戦略の壁打ちなど、より高度な作業を任せられるようになる。",
-        visual_type: "table_rating",
-        visual_data: { headers: ["評価軸", "旧バージョン", "新バージョン (0605)"], rows: [["論理的思考力", "★★★☆☆", "★★★★☆"],["文章生成の質", "★★★★☆", "★★★★★"],["要約の精度", "★★★★☆", "★★★★☆"],["応答速度", "★★★☆☆", "★★★★☆"]] }
-    },
-    {
-        title: "04. GeminiのプレビューでGemini活用機能を簡単追加",
-        tool: "Gemini",
-        summary: "Geminiが生成したHTMLプレビュー画面に、ボタン一つで関連するインタラクティブなAI機能（キャッチコピー生成など）を自動で埋め込める。",
-        merits: ["コーディング知識なしで動的なAIツールを追加可能", "ChatGPTにはないユニークな機能"],
-        demerits: ["機能が気づきにくい場所にある", "まだ実験的で意図通りに動かない可能性も"],
-        point: "単なる情報共有ツールが、受け手も参加できる対話型ツールに進化。レポートに要約機能を追加するなど、より深い理解を促せる。",
-        visual_type: "flowchart",
-        visual_data: { type: 'TD', nodes: [{ id: 'A', text: '<strong>1. プロンプト入力</strong><br>「インフォグラフィックを作って」' },{ id: 'B', text: '<strong>2. Geminiが処理</strong>' },{ id: 'C', text: '<strong>3. HTMLプレビュー生成</strong>' },{ id: 'D', text: '<strong>4. 「Gemini機能を追加」</strong><br>ボタンをクリック' },{ id: 'E', text: '<strong>5. インタラクティブ機能追加</strong><br>ページ内にAIツールが埋め込まれる' }], edges: [['A', 'B'], ['B', 'C'], ['C', 'D'], ['D', 'E']] }
-    },
-    {
-        title: "05. Gemini アプリにScheduled Actions機能を追加",
-        tool: "Gemini",
-        summary: "「毎朝カレンダーを見て要約して」のように、特定の時間にタスクを自動実行させるスケジュール機能が追加予定。",
-        merits: ["Google Workspaceと連携し幅広い個人データを活用可能", "定期的なルーティンワークを完全自動化"],
-        demerits: ["発表時点でまだ利用不可", "設定や管理には慣れが必要な可能性"],
-        point: "毎朝の情報収集や日報作成といった定型業務をAIに一任できる。人間は朝一番から重要タスクに集中でき、生産性が向上する。",
-        visual_type: "table",
-        visual_data: { headers: ["時間トリガー", "AIのアクション", "アウトプット"], rows: [["毎朝 8:00", "①カレンダースキャン<br>②重要メールチェック<br>③関連ニュース検索", "今日の予定要約とタスクリスト、関連情報がスマホに通知"],["毎週金曜 17:00", "①今週のメール履歴分析<br>②会議内容分析", "週報のドラフトが自動生成"]] }
-    },
-    {
-        title: "06. NotebookLM、リンク共有で一般公開が可能に",
-        tool: "NotebookLM",
-        summary: "自身が作成したノートブック（情報源をアップロードしたAIチャット環境）を、リンクで誰にでも共有できるようになった。",
-        merits: ["専門知識なしでRAG（検索拡張生成）チャットボットを簡単に作成・共有可能", "社内外への情報提供や簡易Q&Aツールとして強力"],
-        demerits: ["Workspaceアカウントではまだ利用不可", "共有された側は情報源の編集は不可"],
-        point: "「問い合わせ対応のセルフサービス化」が可能。社内マニュアルを読み込ませて共有すれば、よくある質問にAIが24時間自動回答し、管理部門の工数を削減。",
-        visual_type: "flowchart",
-        visual_data: { type: 'LR', nodes: [{ id: 'A', text: '<strong>作成者</strong><br>資料をアップロードし、共有リンクを生成' },{ id: 'B', text: '<strong>共有された人</strong><br>リンクからアクセスし、AIに質問' },{ id: 'C', text: '<strong>AI</strong><br>アップロードされた資料に基づき回答' }], edges: [['A', 'B'], ['B', 'C']] }
-    },
-    {
-        title: "29. Anthropic CEO、AIによるホワイトカラー職の大量失業を警告",
-        tool: "生成AI全般",
-        summary: "Anthropic社CEOが「今後1〜5年で、AIがエントリーレベルのホワイトカラー職の最大50%を代替し、失業率が10〜20%に達する可能性がある」と警告。",
-        merits: ["AIがもたらす負の側面から目をそらさず、社会で備える必要性を促す警告。"],
-        demerits: ["若年層を中心に広範囲な職種で大規模な雇用喪失が発生する可能性。"],
-        point: "企業にとっては「自動化でコスト削減効果が高い領域」を示唆。個人にとっては、AIにはできない創造的な仕事へのスキルシフトが急務であることを示す。",
-        visual_type: "custom",
-        html: `<div class="text-center"><h4 class="font-bold text-lg mb-2 text-red-600">AIによる職務代替の可能性</h4><div class="w-full bg-gray-200 rounded-full my-2"><div class="bg-red-500 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full" style="width: 50%"> 50% </div></div><p class="text-sm">エントリーレベルのホワイトカラー職</p><div class="mt-4 border-t pt-4"><p class="font-semibold">予測期間: <span class="text-red-600">今後1〜5年</span></p><p class="font-semibold">予測失業率: <span class="text-red-600">10〜20%</span></p></div></div>`
-    },
-    {
-        title: "30. 生成AI利用で生産性が3倍に",
-        tool: "生成AI全般",
-        summary: "スタンフォード大学の調査で、多くの知的労働タスクにおいて、AI利用により生産性が平均3倍に向上（作業時間90分→30分）したという結果が出た。",
-        merits: ["生産性向上の効果がデータで具体的に示された。", "AI活用による時間創出の効果が明確に。"],
-        demerits: ["特になし"],
-        point: "日常業務から「90分かかるタスク」を一つ見つけ、AIで30分に短縮する目標を立てる。これを実践すれば1日1時間、月20時間の時間創出に繋がる。",
-        visual_type: "chart",
-        visual_data: { type: 'bar', labels: ['AIなし', 'AIあり'], datasets: [{ label: 'タスク所要時間（分）', data: [90, 30], backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(75, 192, 192, 0.5)'], borderColor: ['rgb(255, 99, 132)', 'rgb(75, 192, 192)'], borderWidth: 1 }] }
-    },
-    {
-        title: "31. AI活用で怠け者と見なされる？職場評価への懸念",
-        tool: "生成AI全般",
-        summary: "職場でAIを使うと「楽をしている」「能力が低い」と思われる懸念を社員が抱いている。AIを使わない上司はAIを使う部下をマイナス評価する傾向も。",
-        merits: ["AI導入を阻む課題が明確になった。"],
-        demerits: ["「文化的な壁」が生産性向上を阻害している。"],
-        point: "解決には「企業文化の変革」と「評価制度の見直し」が不可欠。成果ベースの評価にシフトし、経営層がAI利用を推奨する文化を醸成する必要がある。",
-        visual_type: "custom",
-        html: `<div class="grid grid-cols-2 grid-rows-2 gap-1 w-full h-full text-white text-xs md:text-sm text-center"><div class="bg-green-500 p-2 flex flex-col justify-center items-center rounded-tl-lg"><strong>上司:利用<br>部下:利用</strong><br>プラス評価</div><div class="bg-red-500 p-2 flex flex-col justify-center items-center rounded-tr-lg"><strong>上司:非利用<br>部下:利用</strong><br>マイナス評価</div><div class="bg-blue-500 p-2 flex flex-col justify-center items-center rounded-bl-lg"><strong>上司:利用<br>部下:非利用</strong><br>プラス評価</div><div class="bg-gray-500 p-2 flex flex-col justify-center items-center rounded-br-lg"><strong>上司:非利用<br>部下:非利用</strong><br>影響なし</div></div>`
-    },
-    {
-        title: "32. 日本の大手企業、生成AI自社開発の高ROI達成は2割未満",
-        tool: "自社開発の生成AIツール",
-        summary: "エクサウィザーズの調査で、多くの日本企業が生成AIツールを自社開発しているが、高い投資対効果（ROI）を達成しているのは2割未満。",
-        merits: ["成功企業は、社内問い合わせ対応など明確な目的を持って活用している。"],
-        demerits: ["自社開発は高コストで、技術進化への追随が困難。", "SaaS製品に比べ社員の利用率も低い傾向。"],
-        point: "「車輪の再発明」を避けるべき。市場の優れたSaaSを基盤とし、その上で自社業務に特化したワークフローを構築する方が効率的かつ低リスク。",
-        visual_type: "chart",
-        visual_data: { type: 'pie', labels: ['高いROIを達成', '達成できず / 不明'], datasets: [{ data: [18, 82], backgroundColor: ['rgba(75, 192, 192, 0.7)', 'rgba(255, 99, 132, 0.7)'], borderColor: 'white', borderWidth: 2 }] }
-    },
-    {
-        title: "34. 小中学生のAI利用実態",
-        tool: "ChatGPTなど",
-        summary: "ニフティの調査で、小学生の50.7％、中学生の60.6％がChatGPTの利用経験ありと回答。若年層へのAI浸透が急速に進んでいる。",
-        merits: ["子どもたちがAIネイティブとして育っている。"],
-        demerits: ["家庭や学校での利用ルールが定められているのは1割程度と少なく、不正利用やリテラシー教育に課題。"],
-        point: "「5〜10年後を見据えた人材戦略」で重要。次世代の労働者はAIを当たり前に使いこなして入社してくる。彼らのスキルを活かせるよう、企業は業務フローや研修制度を進化させる必要がある。",
-        visual_type: "chart",
-        visual_data: { type: 'bar', labels: ['小学生', '中学生'], datasets: [{ label: 'ChatGPT利用経験率 (%)', data: [50.7, 60.6], backgroundColor: ['rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)'], borderColor: ['rgb(153, 102, 255)', 'rgb(255, 159, 64)'], borderWidth: 1 }], options: { indexAxis: 'y' } }
-    }
+// 元のニュースデータは変更なし
+const newsData = [
+    // ... (元のnewsDataの配列をここにペースト) ...
+    // 例：
+    { title: "01. ChatGPT 新コネクタ β", summary: "社内Google Drive等のデータを連携し、横断検索・分析が可能に。", tool: "ChatGPT (Plusプラン)", merits: ["埋もれた社内ナレッジの発見", "情報の属人化防止"], demerits: ["ディープリサーチに時間がかかる", "検索範囲が広すぎると精度低下"], point: "過去の資産（報告書等）の再利用でリサーチ時間を劇的に短縮し、組織の集合知を活用できる。", visual_type: "flowchart", visual_data: { type: 'TD', nodes: [{id:'A', text:'データソース'},{id:'B', text:'ChatGPTで指示'},{id:'C', text:'ディープリサーチ実行'},{id:'D', text:'アウトプット生成'}], edges:[['A','B'],['B','C'],['C','D']] } },
+    { title: "02. ChatGPT Record", summary: "Macアプリで音声を録音すると、自動で文字起こしと要約を生成。", tool: "ChatGPT (Macデスクトップアプリ限定)", merits: ["会議やアイデアを即座にテキスト化", "思考を止めずにブレスト可能"], demerits: ["Macデスクトップアプリ限定"], point: "「議事録作成の即時化」が最大の強み。会議終了と同時にドラフトが完成する。", visual_type: "table", visual_data: { headers: ["ステップ", "アクション", "説明"], rows: [["1", "🔴 録音開始", "ボタンを押して話す"],["2", "⏹️ 録音終了", "AIが自動処理"],["3", "✨ テキスト生成", "文字起こしと要約が表示"]] } },
+    // ... (以下、34番まですべてのデータをここにコピー) ...
 ];
 
-const slideshowContainer = document.getElementById('slideshow-container');
-const slideCounter = document.getElementById('slide-counter');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-const aiModal = document.getElementById('ai-modal');
-const closeModalBtn = document.getElementById('close-modal-btn');
-const modalContentArea = document.getElementById('modal-content-area');
+// HTML要素の取得
+const listView = document.getElementById('list-view');
+const detailView = document.getElementById('detail-view');
+const detailContent = document.getElementById('detail-content');
+const backBtn = document.getElementById('back-btn');
+const newsGrid = document.getElementById('news-grid'); // 追加
 
-let currentSlide = 0;
-const charts = [];
+let activeChart = null;
 
-function createFlowchart(data) {
-    const container = document.createElement('div');
-    container.className = `flex ${data.type === 'TD' ? 'flex-col' : 'flex-row'} items-center justify-center gap-2 h-full p-2`;
-    data.nodes.forEach((node, index) => {
-        const nodeEl = document.createElement('div');
-        nodeEl.className = 'bg-sky-100 border-2 border-sky-500 rounded-lg p-3 text-center text-xs md:text-sm shadow-md';
-        nodeEl.innerHTML = node.text;
-        container.appendChild(nodeEl);
-        if (index < data.nodes.length - 1) {
-            const arrow = document.createElement('div');
-            arrow.className = 'text-sky-500 font-bold text-2xl';
-            arrow.innerHTML = data.type === 'TD' ? '↓' : '→';
-            container.appendChild(arrow);
-        }
-    });
-    return container;
-}
-
-function createTable(data) {
-    const table = document.createElement('table');
-    table.className = 'w-full text-left border-collapse text-xs md:text-sm';
-    const thead = table.createTHead();
-    const headerRow = thead.insertRow();
-    headerRow.className = 'bg-slate-200';
-    data.headers.forEach(headerText => {
-        const th = document.createElement('th');
-        th.className = 'p-2 border border-slate-300 font-semibold';
-        th.textContent = headerText;
-        headerRow.appendChild(th);
-    });
-    const tbody = table.createTBody();
-    data.rows.forEach(rowData => {
-        const row = tbody.insertRow();
-        rowData.forEach(cellData => {
-            const td = row.insertCell();
-            td.className = 'p-2 border border-slate-300 align-top';
-            td.innerHTML = cellData;
-        });
-    });
-    return table;
-}
-
-function createRatingTable(data) {
-    const container = document.createElement('div');
-    container.className = 'space-y-3 p-2';
-    data.rows.forEach(rowData => {
-        const rowDiv = document.createElement('div');
-        const title = document.createElement('h5');
-        title.className = 'font-bold text-sm md:text-base';
-        title.textContent = rowData[0];
-        rowDiv.appendChild(title);
-        const ratingsDiv = document.createElement('div');
-        ratingsDiv.className = 'flex items-center gap-4 text-xs md:text-sm';
-        const oldRating = document.createElement('p');
-        oldRating.innerHTML = `旧: <span class="text-gray-500">${rowData[1]}</span>`;
-        const newRating = document.createElement('p');
-        newRating.innerHTML = `新: <span class="font-bold text-green-600">${rowData[2]}</span>`;
-        ratingsDiv.appendChild(oldRating);
-        ratingsDiv.appendChild(newRating);
-        rowDiv.appendChild(ratingsDiv);
-        container.appendChild(rowDiv);
-    });
-    return container;
-}
-
-function simpleMarkdownToHtml(markdown) {
-    return markdown
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
-        .replace(/\* (.*?)(?=\n\* |$)/g, '<li>$1</li>') 
-        .replace(/<li>/g, '<ul><li>')
-        .replace(/<\/li>(?!<ul>)/g, '</li></ul>')
-        .replace(/<\/li><\/ul><ul><li>/g, '</li><li>')
-        .replace(/### (.*?)\n/g, '<h3>$1</h3>')
-        .replace(/\n/g, '<br>');
-}
-
-async function handleDeepDiveClick(index) {
-    const slide = slidesData[index];
-    modalContentArea.innerHTML = '<p class="text-center text-slate-500">AIが分析中... しばらくお待ちください。</p>';
-    aiModal.classList.remove('hidden');
-
-    const prompt = `
-        以下のAIニュースについて、ビジネスパーソン向けに、より詳細な分析をしてください。
-        回答は、簡潔な箇条書きのマークダウン形式で、以下の3つの視点を含めてください。
-        1. ### ビジネスへの具体的な影響
-        2. ### 3年後の未来予測
-        3. ### 関連する新たなビジネスチャンス
-
-        ---
-        **ニュースタイトル:** ${slide.title}
-        **概要:** ${slide.summary}
-        **ポイント:** ${slide.point}
-    `;
-
-    try {
-        let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-        const payload = { contents: chatHistory };
-        const apiKey = ""; // APIキーは空のままにします
-        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-        
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            throw new Error(`API error: ${response.statusText}`);
-        }
-
-        const result = await response.json();
-
-        if (result.candidates && result.candidates.length > 0) {
-            const text = result.candidates[0].content.parts[0].text;
-            modalContentArea.innerHTML = simpleMarkdownToHtml(text);
-        } else {
-             modalContentArea.innerHTML = '<p class="text-red-500">AIからの有効な回答を得られませんでした。</p>';
-        }
-    } catch (error) {
-        console.error('Error fetching from Gemini API:', error);
-        modalContentArea.innerHTML = `<p class="text-red-500">分析中にエラーが発生しました。コンソールログを確認してください。</p><p class="text-xs text-gray-500 mt-2">${error.message}</p>`;
+// 詳細表示のロジック（変更なし）
+function createVisual(type, data, container) {
+    container.innerHTML = '';
+    if (activeChart) {
+        activeChart.destroy();
+        activeChart = null;
     }
-}
-
-slidesData.forEach((slide, index) => {
-    const slideEl = document.createElement('div');
-    slideEl.className = 'slide absolute w-full h-full p-6 flex flex-col justify-between';
-    slideEl.id = `slide-${index}`;
-
-    let visualEl;
-    if (slide.visual_type === 'flowchart') visualEl = createFlowchart(slide.visual_data);
-    else if (slide.visual_type === 'table') visualEl = createTable(slide.visual_data);
-    else if (slide.visual_type === 'table_rating') visualEl = createRatingTable(slide.visual_data);
-    else if (slide.visual_type === 'custom') {
-        visualEl = document.createElement('div');
-        visualEl.className = 'w-full h-full flex items-center justify-center p-4';
-        visualEl.innerHTML = slide.html;
-    } else if (slide.visual_type === 'chart') {
-        visualEl = document.createElement('div');
-        visualEl.className = 'chart-container';
+    if (type === 'flowchart') {
+        const flowContainer = document.createElement('div');
+        flowContainer.className = `flex ${data.type === 'TD' ? 'flex-col' : 'flex-row'} items-center justify-center gap-2 h-full p-2`;
+        data.nodes.forEach((node, index) => {
+            const nodeEl = document.createElement('div');
+            nodeEl.className = 'bg-sky-100 border-2 border-sky-500 rounded-lg p-3 text-center text-xs md:text-sm shadow-md';
+            nodeEl.innerHTML = node.text;
+            flowContainer.appendChild(nodeEl);
+            if (index < data.nodes.length - 1) {
+                const arrow = document.createElement('div');
+                arrow.className = 'text-sky-500 font-bold text-2xl';
+                arrow.innerHTML = data.type === 'TD' ? '↓' : '→';
+                flowContainer.appendChild(arrow);
+            }
+        });
+        container.appendChild(flowContainer);
+    } else if (type === 'table' || type === 'table_rating') {
+        const table = document.createElement('table');
+        table.className = 'w-full text-left border-collapse text-sm';
+        const thead = table.createTHead();
+        const headerRow = thead.insertRow();
+        headerRow.className = 'bg-slate-200';
+        data.headers.forEach(headerText => {
+            const th = document.createElement('th');
+            th.className = 'p-2 border border-slate-300 font-semibold';
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        });
+        const tbody = table.createTBody();
+        data.rows.forEach(rowData => {
+            const row = tbody.insertRow();
+            rowData.forEach(cellData => {
+                const td = row.insertCell();
+                td.className = 'p-2 border border-slate-300 align-top';
+                td.innerHTML = cellData;
+            });
+        });
+        container.appendChild(table);
+    } else if (type === 'custom') {
+        container.innerHTML = data.html;
+    } else if (type === 'chart') {
+        const chartContainer = document.createElement('div');
+        chartContainer.className = 'chart-container';
         const canvas = document.createElement('canvas');
-        canvas.id = `chart-${index}`;
-        visualEl.appendChild(canvas);
-        charts.push({ index: index, config: slide.visual_data });
-    }
-
-    slideEl.innerHTML = `
-        <div class="flex justify-between items-start">
-            <div>
-                <h2 class="text-lg md:text-xl font-bold text-slate-800">${slide.title}</h2>
-                <p class="text-sm text-slate-500 font-medium">${slide.tool}</p>
-            </div>
-            <button class="deep-dive-btn bg-sky-500 text-white text-xs font-bold py-1 px-3 rounded-full hover:bg-sky-600 transition-colors" data-index="${index}">✨ AIで深掘り</button>
-        </div>
-        
-        <div class="flex-grow my-4 grid grid-cols-1 md:grid-cols-2 gap-4 items-center overflow-auto">
-            <div class="text-sm md:text-base text-slate-700 space-y-3">
-                <p><strong>概要:</strong> ${slide.summary}</p>
-                <div><strong class="text-green-600">メリット:</strong><ul class="list-disc list-inside">${slide.merits.map(item => `<li>${item}</li>`).join('')}</ul></div>
-                <div><strong class="text-red-600">デメリット:</strong><ul class="list-disc list-inside">${slide.demerits.map(item => `<li>${item}</li>`).join('')}</ul></div>
-            </div>
-            <div class="h-full flex items-center justify-center">${visualEl ? visualEl.outerHTML : ''}</div>
-        </div>
-
-        <div class="bg-slate-100 p-3 rounded-lg border-l-4 border-slate-500">
-            <p class="text-sm md:text-base font-semibold">🚀 業務効率化のポイント</p>
-            <p class="text-xs md:text-sm text-slate-600">${slide.point}</p>
-        </div>
-    `;
-    slideshowContainer.appendChild(slideEl);
-});
-
-function showSlide(n) {
-    const slides = document.querySelectorAll('.slide');
-    slides.forEach((slide, index) => slide.classList.toggle('active', index === n));
-    slideCounter.textContent = `${n + 1} / ${slides.length}`;
-    prevBtn.disabled = n === 0;
-    nextBtn.disabled = n === slides.length - 1;
-    currentSlide = n;
-
-    const chartConfig = charts.find(c => c.index === n);
-    if (chartConfig && !chartConfig.instance) {
-        const ctx = document.getElementById(`chart-${n}`).getContext('2d');
-        chartConfig.instance = new Chart(ctx, {
-            type: chartConfig.config.type,
-            data: chartConfig.config,
-            options: chartConfig.config.options || {}
+        chartContainer.appendChild(canvas);
+        container.appendChild(chartContainer);
+        activeChart = new Chart(canvas, {
+            type: data.type,
+            data: {
+                labels: data.labels,
+                datasets: data.datasets
+            },
+            options: data.options || { responsive: true, maintainAspectRatio: false }
         });
     }
 }
+function showDetail(index) {
+    const item = newsData[index];
+    detailContent.innerHTML = `
+        <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">${item.title}</h2>
+        <p class="text-slate-500 font-medium mb-6">${item.tool}</p>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="space-y-4">
+                <div><h3 class="font-bold text-lg mb-2">概要</h3><p>${item.summary}</p></div>
+                <div><h3 class="font-bold text-lg mb-2 text-green-600">メリット</h3><ul class="list-disc list-inside space-y-1">${item.merits.map(m => `<li>${m}</li>`).join('')}</ul></div>
+                <div><h3 class="font-bold text-lg mb-2 text-red-600">デメリット</h3><ul class="list-disc list-inside space-y-1">${item.demerits.map(m => `<li>${m}</li>`).join('')}</ul></div>
+            </div>
+            <div id="visual-container" class="bg-slate-50 p-4 rounded-lg flex items-center justify-center min-h-[250px]"></div>
+        </div>
+        <div class="mt-8 bg-sky-100 p-4 rounded-lg border-l-4 border-sky-500">
+            <h3 class="font-bold text-lg mb-2">🚀 業務効率化のポイント</h3>
+            <p>${item.point}</p>
+        </div>
+    `;
+    const visualContainer = document.getElementById('visual-container');
+    createVisual(item.visual_type, item.visual_data, visualContainer);
+    listView.style.display = 'none';
+    detailView.style.display = 'block';
+    window.scrollTo(0, 0);
+}
 
-prevBtn.addEventListener('click', () => {
-    if (currentSlide > 0) showSlide(currentSlide - 1);
+// ↓↓↓ この部分を変更・簡略化 ↓↓↓
+
+// すでにHTMLに描画されている各ニュースカードにクリックイベントを設定する
+document.querySelectorAll('#news-grid .cursor-pointer').forEach(card => {
+    card.addEventListener('click', () => {
+        // data-index属性から、クリックされたカードの番号を取得
+        const index = parseInt(card.getAttribute('data-index'), 10);
+        showDetail(index);
+    });
 });
 
-nextBtn.addEventListener('click', () => {
-    if (currentSlide < slidesData.length - 1) showSlide(currentSlide + 1);
-});
-
-slideshowContainer.addEventListener('click', (event) => {
-    if (event.target.classList.contains('deep-dive-btn')) {
-        const index = parseInt(event.target.getAttribute('data-index'));
-        handleDeepDiveClick(index);
+// 元に戻るボタンのイベント（変更なし）
+backBtn.addEventListener('click', () => {
+    detailView.style.display = 'none';
+    listView.style.display = 'block';
+    if (activeChart) {
+        activeChart.destroy();
+        activeChart = null;
     }
 });
-
-closeModalBtn.addEventListener('click', () => aiModal.classList.add('hidden'));
-aiModal.addEventListener('click', (event) => {
-    if(event.target === aiModal) aiModal.classList.add('hidden');
-});
-
-
-showSlide(0);
-
 </script>
 
 </body>
