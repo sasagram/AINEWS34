@@ -50,7 +50,6 @@
 
 <script>
 const newsData = [
-    // 1-10
     { title: "01. ChatGPT 新コネクタ β", summary: "社内Google Drive等のデータを連携し、横断検索・分析が可能に。", tool: "ChatGPT (Plusプラン)", merits: ["埋もれた社内ナレッジの発見", "情報の属人化防止"], demerits: ["ディープリサーチに時間がかかる", "検索範囲が広すぎると精度低下"], point: "過去の資産（報告書等）の再利用でリサーチ時間を劇的に短縮し、組織の集合知を活用できる。", visual_type: "flowchart", visual_data: { type: 'TD', nodes: [{id:'A', text:'データソース'},{id:'B', text:'ChatGPTで指示'},{id:'C', text:'ディープリサーチ実行'},{id:'D', text:'アウトプット生成'}], edges:[['A','B'],['B','C'],['C','D']] } },
     { title: "02. ChatGPT Record", summary: "Macアプリで音声を録音すると、自動で文字起こしと要約を生成。", tool: "ChatGPT (Macデスクトップアプリ限定)", merits: ["会議やアイデアを即座にテキスト化", "思考を止めずにブレスト可能"], demerits: ["Macデスクトップアプリ限定"], point: "「議事録作成の即時化」が最大の強み。会議終了と同時にドラフトが完成する。", visual_type: "table", visual_data: { headers: ["ステップ", "アクション", "説明"], rows: [["1", "🔴 録音開始", "ボタンを押して話す"],["2", "⏹️ 録音終了", "AIが自動処理"],["3", "✨ テキスト生成", "文字起こしと要約が表示"]] } },
     { title: "03. Gemini 1.5 Pro アップグレード", summary: "AIモデルのアップデートで、思考能力や回答の精度がさらに向上。", tool: "Gemini 1.5 Pro", merits: ["生成テキストの質・論理性が向上", "より複雑な指示に対応可能"], demerits: ["モデルの進化が速く、継続的な評価が必要"], point: "AIのアウトプットの質向上で人間による手直しが減り、より高度な作業を任せられる。", visual_type: "table_rating", visual_data: { headers: ["評価軸", "旧バージョン", "新バージョン"], rows: [["論理的思考力", "★★★☆☆", "★★★★☆"],["文章生成の質", "★★★★☆", "★★★★★"],["応答速度", "★★★☆☆", "★★★★☆"]] } },
@@ -141,7 +140,7 @@ function createVisual(type, data, container) {
         });
         container.appendChild(table);
     } else if (type === 'custom') {
-        container.innerHTML = data.visual_data.html;
+        container.innerHTML = data.html;
     } else if (type === 'chart') {
         const chartContainer = document.createElement('div');
         chartContainer.className = 'chart-container';
@@ -197,40 +196,35 @@ function showDetail(index) {
     const visualContainer = detailContent.querySelector('#visual-container');
     createVisual(item.visual_type, item.visual_data, visualContainer);
 
-    // Create and append navigation
     const detailNav = document.createElement('div');
     detailNav.id = 'detail-nav';
     detailNav.className = 'mt-8 pt-6 border-t flex justify-between items-center gap-4';
 
-    // Previous Button
     const prevIndex = index - 1;
     const prevButton = document.createElement('button');
-    prevButton.className = 'text-left text-slate-600 hover:text-sky-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed';
+    prevButton.className = 'text-left text-slate-600 hover:text-sky-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex-1';
     if (prevIndex >= 0) {
         prevButton.innerHTML = `
             <span class="text-xs">← 前のニュース</span>
-            <p class="font-bold text-sm md:text-base">${newsData[prevIndex].title}</p>
+            <p class="font-bold text-sm md:text-base truncate">${newsData[prevIndex].title}</p>
         `;
         prevButton.onclick = () => showDetail(prevIndex);
     } else {
         prevButton.disabled = true;
-        prevButton.innerHTML = `<span class="text-xs invisible">前のニュース</span>`;
     }
     detailNav.appendChild(prevButton);
 
-    // Next Button
     const nextIndex = index + 1;
     const nextButton = document.createElement('button');
-    nextButton.className = 'text-right text-slate-600 hover:text-sky-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed';
+    nextButton.className = 'text-right text-slate-600 hover:text-sky-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed flex-1';
     if (nextIndex < newsData.length) {
         nextButton.innerHTML = `
             <span class="text-xs">次のニュース →</span>
-            <p class="font-bold text-sm md:text-base">${newsData[nextIndex].title}</p>
+            <p class="font-bold text-sm md:text-base truncate">${newsData[nextIndex].title}</p>
         `;
         nextButton.onclick = () => showDetail(nextIndex);
     } else {
         nextButton.disabled = true;
-        nextButton.innerHTML = `<span class="text-xs invisible">次のニュース</span>`;
     }
     detailNav.appendChild(nextButton);
     
